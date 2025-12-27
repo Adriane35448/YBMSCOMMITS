@@ -1,0 +1,21 @@
+<tbody>
+                    <?php
+                    $result = $conn->query("SELECT * FROM graduates ORDER BY id DESC");
+                    while($row = $result->fetch_assoc()): ?>
+                    <tr>
+                        <td><img src="uploads/<?php echo $row['photo']; ?>" width="50" height="50" style="border-radius:50%;"></td>
+                        <td><?php echo $row['name']; ?></td>
+                        <td><?php echo $row['age']; ?></td>
+                        <td><?php echo $row['academic_year']; ?></td>
+                        <td><?php echo $row['course']; ?></td>
+                        <td>
+                            <a href="manage_graduates.php?delete=<?php echo $row['id']; ?>" class="btn-delete" onclick="return confirm('Delete this record?')">Delete</a>
+                        </td>
+                    </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
