@@ -1,0 +1,28 @@
+<?php 
+
+$conn = new mysqli("localhost", "root", "", "icpep");
+
+// Handle Delete
+if(isset($_GET['delete'])){
+    $id = $_GET['delete'];
+    $conn->query("DELETE FROM graduates WHERE id=$id");
+    header("location: manage_graduates.php");
+}
+
+// Handle Form Submission (Create/Update)
+if(isset($_POST['save'])){
+    $name = $_POST['name'];
+    $age = $_POST['age'];
+    $year = $_POST['academic_year'];
+    $course = $_POST['course'];
+    
+    // Photo Upload Logic
+    $photo = $_FILES['photo']['name'];
+    $target = "uploads/".basename($photo);
+    move_uploaded_file($_FILES['photo']['tmp_name'], $target);
+
+    $conn->query("INSERT INTO graduates (name, age, academic_year, course, photo) VALUES ('$name', '$age', '$year', '$course', '$photo')");
+    header("location: manage_graduates.php");
+}
+?>
+
