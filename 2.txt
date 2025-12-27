@@ -1,0 +1,21 @@
+$sql = "INSERT INTO users (first_name, last_name, student_id, password) VALUES (?, ?, ?, ?)";
+		
+
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("ssss", $firstName, $lastName, $studentId, $password);
+		
+
+	if ($stmt->execute()) {
+	// Redirect to sign-in page after successful sign-up
+	header("Location: signin.php");
+	exit();
+	} else {
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
+	
+    $stmt->close();
+	}
+		
+
+	$conn->close();
+?>
